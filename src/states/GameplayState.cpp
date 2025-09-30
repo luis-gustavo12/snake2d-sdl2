@@ -9,17 +9,9 @@
 #include "entities/AppleEntity.h"
 
 void GameplayState::HandleEvents(const SDL_Event &e) {
-
-	if (e.type == SDL_KEYDOWN) {
-		std::cout << "Key pressed: " << e.key.keysym.sym << "\n";
-		switch (e.key.keysym.sym) {
-
-			case SDLK_UP:
-				std::cout << "Up key pressed!!\n";
-				break;
-		}
+	for (const auto& entity : entities) {
+		entity->HandleInput(e);
 	}
-
 }
 
 void GameplayState::Update() {

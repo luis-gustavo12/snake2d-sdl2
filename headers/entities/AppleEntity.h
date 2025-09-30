@@ -18,6 +18,12 @@ public:
 
 	void SetTexture(SDL_Texture *texture) override;
 
+	void HandleInput(const SDL_Event &e) override;
+
+	void SetRect(int x, int y, int w, int h) override;
+
+	void SetPoint(int x, int y) override;
+
 private:
 	AppleEntity() = default;
 

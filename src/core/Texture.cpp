@@ -11,7 +11,9 @@ SDL_Texture* TextureHandler::CreateTexture(const char *imagePath, SDL_Renderer *
 
 	SDL_Texture* texture = IMG_LoadTexture(renderer, imagePath);
 
-	if (!texture) std::cout << "Failed to initialize texture!!\n";
+	if (!texture) {
+		std::cout << "Failed to initialize texture : "<< IMG_GetError() <<"\n";
+	}
 
 	return texture;
 

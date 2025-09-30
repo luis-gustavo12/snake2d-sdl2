@@ -6,8 +6,8 @@
 
 #include <iostream>
 #include <SDL.h>
+#include <SDL_image.h>
 
-#include "entities/AppleEntity.h"
 #include "states/GameplayState.h"
 
 
@@ -18,6 +18,12 @@ int Engine::Init(const char* windowName, int windowWidth, int windowHeight) {
 		return 0;
 	}
 
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags)) {
+		std::cout << "Failed to initialize SDL_image: " << IMG_GetError() << "\n";
+		return 0;
+	}
+
 	window = SDL_CreateWindow("SDL2 Snake Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
 
 	if (!window) {
@@ -25,9 +31,9 @@ int Engine::Init(const char* windowName, int windowWidth, int windowHeight) {
 		return 0;
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED  | SDL_RENDERER_SOFTWARE);
 
-	if (!renderer) {
+	if (renderer == nullptr) {
 		std::cout << "Failed to initialize renderer: " << SDL_GetError() << "\n";
 		return 0;
 	}
@@ -44,7 +50,6 @@ int Engine::Init(const char* windowName, int windowWidth, int windowHeight) {
 
 void Engine::Run() {
 
-	SDL_UpdateWindowSurface(window);
 	SDL_Event event;
 
 	while (run) {
@@ -58,9 +63,6 @@ void Engine::Run() {
 			}
 			currentState->HandleEvents(event);
 		}
-
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-		SDL_RenderClear(renderer);
 		currentState->Render(renderer);
 
 		SDL_RenderPresent(renderer);
@@ -73,6 +75,7 @@ Engine::~Engine() {
 	std::cout << "Shutting down engine\n";
 	if (window) SDL_DestroyWindow(window);
 	if (renderer) SDL_DestroyRenderer(renderer);
+	IMG_Quit();
 	SDL_Quit();
 }
 
