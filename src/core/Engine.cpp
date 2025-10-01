@@ -9,6 +9,7 @@
 #include <SDL_image.h>
 
 #include "states/GameplayState.h"
+#include "states/StateFactory.h"
 
 
 int Engine::Init(const char* windowName, int windowWidth, int windowHeight) {
@@ -38,7 +39,7 @@ int Engine::Init(const char* windowName, int windowWidth, int windowHeight) {
 		return 0;
 	}
 
-	currentState = std::make_unique<GameplayState>(renderer);
+	currentState = StateFactory::CreateState(EGameState::Gameplay, renderer);
 
 	currentState->OnStateBegin();
 
@@ -63,9 +64,14 @@ void Engine::Run() {
 			}
 			currentState->HandleEvents(event);
 		}
+
+		currentState->Update();
+
 		currentState->Render(renderer);
 
 		SDL_RenderPresent(renderer);
+
+		SDL_Delay(30);
 
 	}
 

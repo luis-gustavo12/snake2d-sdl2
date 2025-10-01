@@ -12,6 +12,12 @@
 
 class Engine;
 
+enum class EGameState{
+	Gameplay,
+	Menu,
+};
+
+
 class GameState {
 public:
 	virtual ~GameState() = default;
@@ -21,6 +27,10 @@ public:
 	virtual void AddEntity(std::unique_ptr<Entity> entity) = 0;
 	virtual void OnStateBegin() = 0;
 	virtual void OnStateExit() = 0;
+
+protected:
+	SDL_Texture* backgroundTexture = nullptr;
+
 };
 
 

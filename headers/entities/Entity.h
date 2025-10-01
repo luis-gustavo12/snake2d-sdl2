@@ -9,6 +9,11 @@
 #include <SDL_render.h>
 
 
+enum class EDirection {
+	Up, Down, Left, Right
+};
+
+
 class Entity {
 
 public:

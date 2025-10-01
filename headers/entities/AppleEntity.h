@@ -6,6 +6,8 @@
 #define SNAKE_GAME_SDL2_APPLEENTITY_H
 #include "Entity.h"
 
+class EntityFactory;
+
 class AppleEntity : public Entity {
 public:
 	static std::unique_ptr<Entity> Create(const char *imagePath, SDL_Renderer *renderer);
@@ -25,6 +27,8 @@ public:
 	void SetPoint(int x, int y) override;
 
 private:
+	friend class EntityFactory;
+
 	AppleEntity() = default;
 
 };

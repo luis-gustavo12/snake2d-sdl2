@@ -19,7 +19,13 @@ add_executable(snake_game_sdl2 src/main.cpp
         headers/core/Texture.h
         headers/entities/Entity.h
         headers/entities/AppleEntity.h
-        src/entities/AppleEntity.cpp)
+        src/entities/AppleEntity.cpp
+        src/states/StateFactory.cpp
+        headers/states/StateFactory.h
+        src/entities/EntityFactory.cpp
+        headers/entities/EntityFactory.h
+        src/entities/SnakeEntity.cpp
+        headers/entities/SnakeEntity.h)
 
 target_link_libraries(snake_game_sdl2 PRIVATE SDL2::SDL2 SDL2_image::SDL2_image)
 
