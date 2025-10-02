@@ -30,7 +30,7 @@ AppleEntity::~AppleEntity() {
 	texture = nullptr;
 }
 
-void AppleEntity::Update() {
+void AppleEntity::Update(float deltaTime) {
 
 }
 

@@ -7,15 +7,22 @@
 SnakeEntity::~SnakeEntity() {
 }
 
-void SnakeEntity::Update() {
+void SnakeEntity::Update(float deltaTime) {
+
+	moveTimer += deltaTime;
+
+	if (moveTimer <= moveInterval) return;
+
+	moveTimer -= moveInterval;
+
 	if (this->direction == EDirection::Down)
-		positionRect.y += 15;
+		positionRect.y += 32;
 	else if (this->direction == EDirection::Left)
-		positionRect.x -= 15;
+		positionRect.x -= 32;
 	else if (this->direction == EDirection::Right)
-		positionRect.x += 15;
+		positionRect.x += 32;
 	else if (this->direction == EDirection::Up)
-		positionRect.y -= 15;
+		positionRect.y -= 32;
 }
 
 void SnakeEntity::Render(SDL_Renderer *renderer) {

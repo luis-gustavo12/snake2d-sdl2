@@ -12,7 +12,7 @@ class SnakeEntity : public Entity{
 public:
 	~SnakeEntity() override;
 
-	void Update() override;
+	void Update(float deltaTime) override;
 
 	void Render(SDL_Renderer *renderer) override;
 
@@ -32,6 +32,9 @@ private:
 	SnakeEntity() = default;
 
 	EDirection direction;
+
+	float moveInterval = 0.2;
+	float moveTimer = 0.0f;
 
 };
 

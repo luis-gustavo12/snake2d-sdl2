@@ -1,12 +1,12 @@
 #include <iostream>
 
 #include "../headers/core/Engine.h"
-#include "SDL2/SDL.h"
+#include "SDL.h"
 
 #define WINDOW_WIDTH 1600
 #define WINDOW_HEIGHT 900
 
-int main() {
+int main(int argc, char* argv[]) {
 
 	SDL_Window* window = nullptr;
 	SDL_Surface* surface = nullptr;

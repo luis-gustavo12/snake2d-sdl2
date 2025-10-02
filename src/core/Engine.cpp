@@ -52,8 +52,16 @@ int Engine::Init(const char* windowName, int windowWidth, int windowHeight) {
 void Engine::Run() {
 
 	SDL_Event event;
+	Uint64 lastTime = SDL_GetPerformanceCounter();
+	float deltaTime = 0.0f;
 
 	while (run) {
+
+		// deltaTime handling
+		Uint64 currentTime = SDL_GetPerformanceCounter();
+		deltaTime = (float) (currentTime - lastTime) / (float) SDL_GetPerformanceFrequency();
+		lastTime = currentTime;
+
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 				case SDL_QUIT:
@@ -65,13 +73,12 @@ void Engine::Run() {
 			currentState->HandleEvents(event);
 		}
 
-		currentState->Update();
+		currentState->Update(deltaTime);
 
 		currentState->Render(renderer);
 
 		SDL_RenderPresent(renderer);
 
-		SDL_Delay(30);
 
 	}
 

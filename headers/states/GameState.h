@@ -22,7 +22,7 @@ class GameState {
 public:
 	virtual ~GameState() = default;
 	virtual void HandleEvents(const SDL_Event& e) = 0;
-	virtual void Update() = 0;
+	virtual void Update(float deltaTime) = 0;
 	virtual void Render(SDL_Renderer* renderer) = 0;
 	virtual void AddEntity(std::unique_ptr<Entity> entity) = 0;
 	virtual void OnStateBegin() = 0;

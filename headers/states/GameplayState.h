@@ -19,7 +19,7 @@ public:
 
 	void HandleEvents(const SDL_Event &e) override;
 
-	void Update() override;
+	void Update(float deltaTime) override;
 
 	void Render(SDL_Renderer *renderer) override;
 

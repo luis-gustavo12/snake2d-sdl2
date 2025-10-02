@@ -27,9 +27,9 @@ void GameplayState::HandleEvents(const SDL_Event &e) {
 	}
 }
 
-void GameplayState::Update() {
+void GameplayState::Update(float deltaTime) {
 	for (const auto& entity : entities) {
-		entity->Update();
+		entity->Update(deltaTime);
 	}
 }
 

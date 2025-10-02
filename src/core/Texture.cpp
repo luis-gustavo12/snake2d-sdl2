@@ -5,7 +5,7 @@
 #include "core/Texture.h"
 
 #include <iostream>
-#include <SDL2/SDL_image.h>
+#include <SDL_image.h>
 
 SDL_Texture* TextureHandler::CreateTexture(const char *imagePath, SDL_Renderer *renderer) {
 

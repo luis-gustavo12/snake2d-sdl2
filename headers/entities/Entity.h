@@ -18,7 +18,7 @@ class Entity {
 
 public:
 	virtual ~Entity() = default;
-	virtual void Update() = 0;
+	virtual void Update(float deltaTime) = 0;
 	virtual void Render(SDL_Renderer* renderer) = 0;
 	virtual void HandleInput(const SDL_Event& e) = 0;
 	virtual void SetTexture(SDL_Texture* texture) = 0;
