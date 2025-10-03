@@ -9,6 +9,14 @@
 #include <SDL_render.h>
 
 
+struct Angle {
+	static constexpr double ANGLE_UP = 270.0;
+	static constexpr double ANGLE_LEFT = 180.0;
+	static constexpr double ANGLE_DOWN = 90.0;
+	static constexpr double ANGLE_RIGHT = 0.0;
+};
+
+
 enum class EDirection {
 	Up, Down, Left, Right
 };

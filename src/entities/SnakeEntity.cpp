@@ -4,6 +4,8 @@
 
 #include "../../headers/entities/SnakeEntity.h"
 
+#include <iostream>
+
 SnakeEntity::~SnakeEntity() {
 }
 
@@ -15,20 +17,31 @@ void SnakeEntity::Update(float deltaTime) {
 
 	moveTimer -= moveInterval;
 
-	if (this->direction == EDirection::Down)
+	if (this->direction == EDirection::Down) {
 		positionRect.y += 32;
-	else if (this->direction == EDirection::Left)
+		angle = Angle::ANGLE_DOWN;
+	}
+	else if (this->direction == EDirection::Left) {
 		positionRect.x -= 32;
-	else if (this->direction == EDirection::Right)
+		angle = Angle::ANGLE_LEFT;
+	}
+	else if (this->direction == EDirection::Right) {
 		positionRect.x += 32;
-	else if (this->direction == EDirection::Up)
+		angle = Angle::ANGLE_RIGHT;
+	}
+	else if (this->direction == EDirection::Up) {
+		angle = Angle::ANGLE_UP;
 		positionRect.y -= 32;
+	}
 }
 
 void SnakeEntity::Render(SDL_Renderer *renderer) {
-	SDL_Point center = {positionRect.x / 2, positionRect.h / 2};
+	//SDL_Point center = {positionRect.w / 2, positionRect.h / 2};
+	SDL_Point center = {positionRect.w / 2, positionRect.h / 2};
 	SDL_RenderCopyEx(
-		renderer, texture, nullptr, &positionRect, 0.0, &center, SDL_FLIP_NONE);
+		renderer, texture, nullptr, &positionRect, angle, &center, SDL_FLIP_NONE)
+	;
+
 
 }
 

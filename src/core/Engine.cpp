@@ -32,7 +32,7 @@ int Engine::Init(const char* windowName, int windowWidth, int windowHeight) {
 		return 0;
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED  | SDL_RENDERER_SOFTWARE);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	if (renderer == nullptr) {
 		std::cout << "Failed to initialize renderer: " << SDL_GetError() << "\n";

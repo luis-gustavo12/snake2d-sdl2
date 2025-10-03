@@ -27,6 +27,8 @@ std::unique_ptr<Entity> EntityFactory::CreateEntity(EGameEntity entityNumber, SD
 				return nullptr;
 			}
 
+			SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+
 			//std::unique_ptr<Entity> apple (new AppleEntity());
 			auto apple = std::unique_ptr<Entity>(new AppleEntity());
 			//auto apple = std::make_unique<AppleEntity>();

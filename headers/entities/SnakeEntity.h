@@ -35,7 +35,7 @@ private:
 
 	float moveInterval = 0.2;
 	float moveTimer = 0.0f;
-
+	float angle = Angle::ANGLE_RIGHT;
 };
 
 
