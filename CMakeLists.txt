@@ -27,7 +27,11 @@ add_executable(snake_game_sdl2 src/main.cpp
         src/entities/SnakeEntity.cpp
         headers/entities/SnakeEntity.h)
 
-target_link_libraries(snake_game_sdl2 PRIVATE SDL2::SDL2 SDL2_image::SDL2_image)
+if (WIN32)
+    target_link_libraries(snake_game_sdl2 PRIVATE SDL2::SDL2 SDL2_image::SDL2_image SDL2::SDL2main)
+else()
+    target_link_libraries(snake_game_sdl2 PRIVATE SDL2::SDL2 SDL2_image::SDL2_image)
+endif()
 
 target_include_directories(snake_game_sdl2 PRIVATE
         ${SDL2_INCLUDE_DIRS}
