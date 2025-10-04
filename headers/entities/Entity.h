@@ -21,6 +21,25 @@ enum class EDirection {
 	Up, Down, Left, Right
 };
 
+inline std::ostream& operator<<(std::ostream& os, const EDirection& dir) {
+	switch (dir) {
+		case EDirection::Up:
+			os << "Up";
+			break;
+		case EDirection::Down:
+			os << "Down";
+			break;
+		case EDirection::Left:
+			os << "Left";
+			break;
+		case EDirection::Right:
+			os << "Right";
+			break;
+	}
+	return os;
+}
+
+
 
 class Entity {
 

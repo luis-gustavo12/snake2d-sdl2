@@ -18,25 +18,26 @@ void SnakeEntity::Update(float deltaTime) {
 	moveTimer -= moveInterval;
 
 	if (this->direction == EDirection::Down) {
-		positionRect.y += 32;
+		positionRect.y += TILES_MOVE;
 		angle = Angle::ANGLE_DOWN;
 	}
 	else if (this->direction == EDirection::Left) {
-		positionRect.x -= 32;
+		positionRect.x -= TILES_MOVE;
 		angle = Angle::ANGLE_LEFT;
 	}
 	else if (this->direction == EDirection::Right) {
-		positionRect.x += 32;
+		positionRect.x += TILES_MOVE;
 		angle = Angle::ANGLE_RIGHT;
 	}
 	else if (this->direction == EDirection::Up) {
+		positionRect.y -= TILES_MOVE;
 		angle = Angle::ANGLE_UP;
-		positionRect.y -= 32;
 	}
 }
 
 void SnakeEntity::Render(SDL_Renderer *renderer) {
 	//SDL_Point center = {positionRect.w / 2, positionRect.h / 2};
+	std::cout << "Direction : " << this->direction << " x: " << positionRect.x << " y: " << positionRect.y << " point.x " << point.x << " point. y: " << point.y << " angle : " << angle << "\n";
 	SDL_Point center = {positionRect.w / 2, positionRect.h / 2};
 	SDL_RenderCopyEx(
 		renderer, texture, nullptr, &positionRect, angle, &center, SDL_FLIP_NONE)
@@ -49,7 +50,7 @@ void SnakeEntity::HandleInput(const SDL_Event &e) {
 	if (e.type == SDL_KEYDOWN) {
 
 		switch (e.key.keysym.sym) {
-
+			//
 			case SDLK_LEFT:
 			case SDLK_a: {
 				this->direction = EDirection::Left;

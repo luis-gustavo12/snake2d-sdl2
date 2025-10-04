@@ -58,6 +58,7 @@ void GameplayState::OnStateBegin() {
 	SDL_Surface* backgroundSurface = IMG_Load(ASSET_DIR "/grass-background.png");
 	if (backgroundSurface) {
 		this->backgroundTexture = SDL_CreateTextureFromSurface(renderer, backgroundSurface);
+		SDL_FreeSurface(backgroundSurface);
 	} else
 		std::cout << "Error:" << SDL_GetError() << "\n";
 

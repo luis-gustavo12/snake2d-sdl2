@@ -59,7 +59,10 @@ std::unique_ptr<Entity> EntityFactory::CreateEntity(EGameEntity entityNumber, SD
 
 			snakeHead->SetTexture(texture);
 
-			snakeHead->SetRect(20, 20, width, height);
+			int snakeW, snakeH;
+			SDL_QueryTexture(texture, nullptr, nullptr, &snakeW, &snakeH);
+
+			snakeHead->SetRect(15, 15, snakeW, snakeH);
 
 			snakeHead->SetDirection(EDirection::Right);
 

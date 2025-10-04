@@ -6,6 +6,8 @@
 #define SNAKE_GAME_SDL2_SNAKEENTITY_H
 #include "entities/Entity.h"
 
+#define TILES_MOVE 2
+
 class EntityFactory;
 
 class SnakeEntity : public Entity{
