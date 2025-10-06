@@ -35,12 +35,7 @@ void AppleEntity::Update(float deltaTime) {
 }
 
 void AppleEntity::Render(SDL_Renderer *renderer) {
-	SDL_Point center = {positionRect.w / 2, positionRect.h / 2};
-	SDL_RenderCopyEx(
-		renderer, texture, nullptr, &positionRect, 0.0, &center, SDL_FLIP_NONE
-	);
-	//SDL_RenderCopy(renderer, texture, nullptr, &positionRect);
-
+	SDL_RenderCopy(renderer, texture, nullptr, &positionRect);
 }
 
 void AppleEntity::SetTexture(SDL_Texture *texture) {

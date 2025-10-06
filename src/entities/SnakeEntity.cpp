@@ -35,11 +35,15 @@ void SnakeEntity::Update(float deltaTime) {
 
 void SnakeEntity::Render(SDL_Renderer *renderer) {
 
-	SDL_RenderCopy(
-		renderer, textureDirection, nullptr, &positionRect
-	);
+	if (textureDirection){
+		SDL_RenderCopy(
+			renderer, textureDirection, nullptr, &positionRect
+		);
+		textureDirection = nullptr;
+	}
 
-	textureDirection = nullptr;
+
+
 
 
 }

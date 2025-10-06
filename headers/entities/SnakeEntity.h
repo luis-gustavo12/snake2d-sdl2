@@ -39,14 +39,14 @@ private:
 
 	SnakeEntity() = default;
 
-	EDirection direction;
+	EDirection direction = EDirection::Down;
 
-	SDL_Texture* upTexture;
-	SDL_Texture* downTexture;
-	SDL_Texture* leftTexture;
-	SDL_Texture* rightTexture;
+	SDL_Texture* upTexture = nullptr;
+	SDL_Texture* downTexture = nullptr;
+	SDL_Texture* leftTexture = nullptr;
+	SDL_Texture* rightTexture = nullptr;
 
-	SDL_Texture* textureDirection;
+	SDL_Texture* textureDirection = nullptr;
 
 	float moveInterval = 0.2;
 	float moveTimer = 0.0f;

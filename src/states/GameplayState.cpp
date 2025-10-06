@@ -10,6 +10,7 @@
 #include "core/Texture.h"
 #include "entities/AppleEntity.h"
 #include "entities/EntityFactory.h"
+#include "entities/SnakeEntity.h"
 
 void GameplayState::HandleEvents(const SDL_Event &e) {
 
@@ -31,6 +32,20 @@ void GameplayState::Update(float deltaTime) {
 	for (const auto& entity : entities) {
 		entity->Update(deltaTime);
 	}
+
+	// Check for collisions
+	if (applePtr && snakePtr){
+		SDL_Rect appleRect = applePtr->GetRect();
+		SDL_Rect snakeRect = snakePtr->GetRect();
+
+		if (SDL_HasIntersection(&appleRect, &snakeRect)){
+			std::cout << "intersection\n";
+		}
+
+	}
+
+
+
 }
 
 void GameplayState::Render(SDL_Renderer* renderer) {
@@ -67,11 +82,13 @@ void GameplayState::OnStateBegin() {
 	}
 
 	std::unique_ptr<Entity> apple = EntityFactory::CreateEntity(EGameEntity::Apple, renderer);
-	if (apple)
+	applePtr = dynamic_cast<AppleEntity*>(apple.get());
+	if (apple){
 		AddEntity(std::move(apple));
+	}
 
 	std::unique_ptr<Entity> snakeHead = EntityFactory::CreateEntity(EGameEntity::SnakeHead, renderer);
-
+	snakePtr = dynamic_cast<SnakeEntity*>(snakeHead.get());
 	if (snakeHead)
 		AddEntity(std::move(snakeHead));
 
@@ -79,4 +96,6 @@ void GameplayState::OnStateBegin() {
 
 void GameplayState::OnStateExit() {
 	entities.clear();
+	applePtr = nullptr;
+	snakePtr = nullptr;
 }

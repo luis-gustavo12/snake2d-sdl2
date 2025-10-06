@@ -52,6 +52,7 @@ public:
 	virtual void SetTexture(SDL_Texture* texture) = 0;
 	virtual void SetRect(int x, int y, int w, int h) {positionRect = {x, y, w, h};}
 	virtual void SetPoint(int x, int y) {point = {x, y};}
+	virtual SDL_Rect GetRect() {return positionRect;}
 protected:
 	SDL_Texture* texture = nullptr;
 	SDL_Rect positionRect = {};
