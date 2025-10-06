@@ -7,6 +7,7 @@
 #include <iostream>
 
 SnakeEntity::~SnakeEntity() {
+	snakeBody.clear();
 }
 
 void SnakeEntity::Update(float deltaTime) {
@@ -100,21 +101,27 @@ void SnakeEntity::SetDirection(EDirection newDirection) {
 	this->direction = newDirection;
 }
 
-void SnakeEntity::SetTextureDirection(ETextureDirection direction, SDL_Texture* texture){
+void SnakeEntity::SetTextureDirection(EDirection direction, SDL_Texture* texture){
 
 	switch (direction) {
-	case UP:
+	case EDirection::Up:
 		upTexture = texture;
 		break;
-	case DOWN:
+	case EDirection::Down:
 		downTexture = texture;
 		break;
-	case LEFT:
+	case EDirection::Left:
 		leftTexture = texture;
 		break;
-	case RIGHT:
+	case EDirection::Right:
 		rightTexture = texture;
 		break;
 	}
 
 }
+
+void SnakeEntity::AddSegment(EDirection direction, SDL_Rect rect){
+	SnakeSegment segment = {rect, direction};
+	snakeBody.push_back(segment);
+}
+

@@ -4,12 +4,21 @@
 
 #ifndef SNAKE_GAME_SDL2_SNAKEENTITY_H
 #define SNAKE_GAME_SDL2_SNAKEENTITY_H
+#include <vector>
+
 #include "entities/Entity.h"
 
 #define TILES_MOVE 2
 
-enum ETextureDirection {
-	UP, DOWN, LEFT, RIGHT
+enum class ETextureType {
+	HEAD_UP, HEAD_DOWN, HEAD_LEFT, HEAD_RIGHT,
+	BODY_UP, BODY_DOWN, BODY_LEFT, BODY_RIGHT,
+	TAIL_UP, TAIL_DOWN, TAIL_LEFT, TAIL_RIGHT
+};
+
+struct SnakeSegment {
+	SDL_Rect rect;
+	EDirection direction;
 };
 
 class EntityFactory;
@@ -32,7 +41,9 @@ public:
 
 	void SetDirection(EDirection newDirection);
 
-	void SetTextureDirection(ETextureDirection direction, SDL_Texture* texture);
+	void SetTextureDirection(EDirection direction, SDL_Texture* texture);
+
+	void AddSegment(EDirection direction, SDL_Rect rect);
 private:
 
 	friend EntityFactory;
@@ -52,6 +63,8 @@ private:
 	float moveTimer = 0.0f;
 	float speed = 200.0f;
 	float angle = Angle::ANGLE_RIGHT;
+
+	std::vector<SnakeSegment> snakeBody;
 };
 
 

@@ -26,6 +26,8 @@ public:
 
 	void SetPoint(int x, int y) override;
 
+	void Respawn(SDL_Renderer* renderer);
+
 private:
 	friend class EntityFactory;
 

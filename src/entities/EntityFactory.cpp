@@ -79,10 +79,10 @@ std::unique_ptr<Entity> EntityFactory::CreateEntity(EGameEntity entityNumber, SD
 				return nullptr;
 			}
 
-			snake->SetTextureDirection(DOWN, downHead);
-			snake->SetTextureDirection(LEFT, leftHead);
-			snake->SetTextureDirection(UP, upHead);
-			snake->SetTextureDirection(RIGHT, rightHead);
+			snake->SetTextureDirection(EDirection::Down, downHead);
+			snake->SetTextureDirection(EDirection::Left, leftHead);
+			snake->SetTextureDirection(EDirection::Up, upHead);
+			snake->SetTextureDirection(EDirection::Right, rightHead);
 
 			int width, height;
 

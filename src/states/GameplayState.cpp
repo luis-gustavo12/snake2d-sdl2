@@ -40,6 +40,7 @@ void GameplayState::Update(float deltaTime) {
 
 		if (SDL_HasIntersection(&appleRect, &snakeRect)){
 			std::cout << "intersection\n";
+			applePtr->Respawn(renderer);
 		}
 
 	}

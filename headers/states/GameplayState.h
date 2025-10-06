@@ -8,7 +8,9 @@
 #include <vector>
 
 #include "GameState.h"
+#include "entities/AppleEntity.h"
 #include "entities/Entity.h"
+#include "entities/SnakeEntity.h"
 
 
 class GameplayState : public GameState {
@@ -33,8 +35,8 @@ private:
 	SDL_Renderer* renderer;
 	std::vector<std::unique_ptr<Entity>> entities;
 
-	Entity* applePtr;
-	Entity* snakePtr;
+	AppleEntity* applePtr;
+	SnakeEntity* snakePtr;
 
 };
 
