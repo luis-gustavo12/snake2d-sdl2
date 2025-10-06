@@ -42,3 +42,13 @@ target_include_directories(snake_game_sdl2 PRIVATE
 target_compile_definitions(snake_game_sdl2 PRIVATE
         ASSET_DIR="${ASSET_DIR}"
 )
+
+if(WIN32)
+    add_custom_command(TARGET snake_game_sdl2 POST_BUILD
+            COMMAND_EXPAND_LISTS # <-- This is the fix!
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            $<TARGET_RUNTIME_DLLS:snake_game_sdl2>
+            $<TARGET_FILE_DIR:snake_game_sdl2>
+            COMMENT "Copying runtime DLLs"
+    )
+endif()
