@@ -11,37 +11,35 @@ SnakeEntity::~SnakeEntity() {
 
 void SnakeEntity::Update(float deltaTime) {
 
-	moveTimer += deltaTime;
-
-	if (moveTimer <= moveInterval) return;
-
-	moveTimer -= moveInterval;
+	float distance = deltaTime * speed;
 
 	if (this->direction == EDirection::Down) {
-		positionRect.y += TILES_MOVE;
-		angle = Angle::ANGLE_DOWN;
+		positionRect.y += distance;
+		textureDirection = downTexture;
 	}
 	else if (this->direction == EDirection::Left) {
-		positionRect.x -= TILES_MOVE;
-		angle = Angle::ANGLE_LEFT;
+		positionRect.x -= distance;
+		textureDirection = leftTexture;
 	}
 	else if (this->direction == EDirection::Right) {
-		positionRect.x += TILES_MOVE;
-		angle = Angle::ANGLE_RIGHT;
+		positionRect.x += distance;
+		textureDirection = rightTexture;
 	}
 	else if (this->direction == EDirection::Up) {
-		positionRect.y -= TILES_MOVE;
-		angle = Angle::ANGLE_UP;
+		positionRect.y -= distance;
+		textureDirection = upTexture;
 	}
+
+
 }
 
 void SnakeEntity::Render(SDL_Renderer *renderer) {
-	//SDL_Point center = {positionRect.w / 2, positionRect.h / 2};
-	std::cout << "Direction : " << this->direction << " x: " << positionRect.x << " y: " << positionRect.y << " point.x " << point.x << " point. y: " << point.y << " angle : " << angle << "\n";
-	SDL_Point center = {positionRect.w / 2, positionRect.h / 2};
-	SDL_RenderCopyEx(
-		renderer, texture, nullptr, &positionRect, angle, &center, SDL_FLIP_NONE)
-	;
+
+	SDL_RenderCopy(
+		renderer, textureDirection, nullptr, &positionRect
+	);
+
+	textureDirection = nullptr;
 
 
 }
@@ -96,4 +94,23 @@ void SnakeEntity::SetPoint(int x, int y) {
 
 void SnakeEntity::SetDirection(EDirection newDirection) {
 	this->direction = newDirection;
+}
+
+void SnakeEntity::SetTextureDirection(ETextureDirection direction, SDL_Texture* texture){
+
+	switch (direction) {
+	case UP:
+		upTexture = texture;
+		break;
+	case DOWN:
+		downTexture = texture;
+		break;
+	case LEFT:
+		leftTexture = texture;
+		break;
+	case RIGHT:
+		rightTexture = texture;
+		break;
+	}
+
 }

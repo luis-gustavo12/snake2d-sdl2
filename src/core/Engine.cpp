@@ -54,6 +54,8 @@ void Engine::Run() {
 	SDL_Event event;
 	Uint64 lastTime = SDL_GetPerformanceCounter();
 	float deltaTime = 0.0f;
+	const float fps = 60.0f;
+	const float targetFps = 1.0f / fps;
 
 	while (run) {
 
@@ -78,6 +80,14 @@ void Engine::Run() {
 		currentState->Render(renderer);
 
 		SDL_RenderPresent(renderer);
+
+		Uint64 endTime = SDL_GetPerformanceCounter();
+		float elapsedSeconds = (float) (endTime - currentTime) / (float) SDL_GetPerformanceFrequency();
+
+		if (elapsedSeconds < targetFps)
+		{
+			SDL_Delay(((targetFps - elapsedSeconds) * 1000.0f));
+		}
 
 
 	}

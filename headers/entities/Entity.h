@@ -7,6 +7,7 @@
 #include <memory>
 #include <SDL_events.h>
 #include <SDL_render.h>
+#include <ostream>
 
 
 struct Angle {
