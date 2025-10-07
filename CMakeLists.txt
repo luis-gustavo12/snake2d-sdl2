@@ -5,9 +5,13 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(ASSET_DIR "${CMAKE_SOURCE_DIR}/assets/snake-assets")
+set(ASSET_FONTS_DIR "${CMAKE_SOURCE_DIR}/assets/fonts")
+set (ASSET_SOUNDS_DIR "${CMAKE_SOURCE_DIR}/assets/sounds")
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
+find_package(SDL2_mixer REQUIRED)
 add_executable(snake_game_sdl2 src/main.cpp
         src/core/Engine.cpp
         headers/core/Engine.h
@@ -25,22 +29,32 @@ add_executable(snake_game_sdl2 src/main.cpp
         src/entities/EntityFactory.cpp
         headers/entities/EntityFactory.h
         src/entities/SnakeEntity.cpp
-        headers/entities/SnakeEntity.h)
+        headers/entities/SnakeEntity.h
+        src/core/Score.cpp
+        headers/entities/Score.h
+        src/core/TextManager.cpp
+        headers/core/TextManager.h
+        src/core/SoundManager.cpp
+        headers/core/SoundManager.h)
 
 if (WIN32)
-    target_link_libraries(snake_game_sdl2 PRIVATE SDL2::SDL2 SDL2_image::SDL2_image SDL2::SDL2main)
+    target_link_libraries(snake_game_sdl2 PRIVATE SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer SDL2::SDL2main)
 else()
-    target_link_libraries(snake_game_sdl2 PRIVATE SDL2::SDL2 SDL2_image::SDL2_image)
+    target_link_libraries(snake_game_sdl2 PRIVATE SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer)
 endif()
 
 target_include_directories(snake_game_sdl2 PRIVATE
         ${SDL2_INCLUDE_DIRS}
         ${SDL2_IMAGE_INCLUDE_DIRS}
+        ${SDL2_TTF_INCLUDE_DIRS}
+        ${SDL2_MIXER_INCLUDE_DIRS}
         "${CMAKE_SOURCE_DIR}/headers"
 )
 
 target_compile_definitions(snake_game_sdl2 PRIVATE
         ASSET_DIR="${ASSET_DIR}"
+        ASSET_FONTS_DIR="${ASSET_FONTS_DIR}"
+        ASSET_SOUNDS_DIR="${ASSET_SOUNDS_DIR}"
 )
 
 if(WIN32)

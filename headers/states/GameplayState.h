@@ -42,6 +42,7 @@ private:
 	SnakeEntity* snakePtr = nullptr;
 	Score scoreManager;
 	std::unique_ptr<TextManager> textManager;
+	SoundManager soundManager;
 
 };
 

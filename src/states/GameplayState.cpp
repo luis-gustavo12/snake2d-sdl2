@@ -43,6 +43,7 @@ void GameplayState::Update(float deltaTime) {
 			std::cout << "intersection\n";
 			applePtr->Respawn(renderer);
 			scoreManager.Increase();
+			soundManager.PlayOnce("crunch");
 		}
 
 	}
@@ -74,7 +75,6 @@ void GameplayState::Render(SDL_Renderer* renderer) {
 			SDL_Rect msgRect = {10, 10, scoreW, scoreH};
 			SDL_RenderCopy(renderer, texture, nullptr, &msgRect);
 		}
-
 
 	}
 
@@ -110,7 +110,11 @@ void GameplayState::OnStateBegin() {
 		AddEntity(std::move(snakeHead));
 
 	textManager = TextManager::Create(ASSET_FONTS_DIR "/michroma/Michroma-Regular.ttf", 12);
+	soundManager.Load(ASSET_SOUNDS_DIR "/arcade-sound.mp3", ESoundType::MP3, "background");
+	soundManager.PlayContinuously("background");
 
+	soundManager.Load(ASSET_SOUNDS_DIR "/apple-crunch.wav", ESoundType::WAV, "crunch");
+	std::cout << "me\n";
 
 }
 

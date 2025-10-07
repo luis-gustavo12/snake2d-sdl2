@@ -7,6 +7,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 
 #include "states/GameplayState.h"
 #include "states/StateFactory.h"
@@ -14,9 +15,14 @@
 
 int Engine::Init(const char* windowName, int windowWidth, int windowHeight) {
 
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
 		std::cout << "Failed to initialize SDL: " <<  SDL_GetError() <<"\n";
 		return 0;
+	}
+
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+		std::cerr << "Could not initialize SDL_mixer: " << Mix_GetError() << std::endl;
+		return 1;
 	}
 
 	int imgFlags = IMG_INIT_PNG;

@@ -8,6 +8,7 @@
 #include <SDL_events.h>
 #include <SDL_render.h>
 
+#include "core/SoundManager.h"
 #include "entities/Entity.h"
 
 class Engine;
@@ -30,6 +31,7 @@ public:
 
 protected:
 	SDL_Texture* backgroundTexture = nullptr;
+	std::unique_ptr <SoundManager> soundManager = nullptr;
 
 };
 
