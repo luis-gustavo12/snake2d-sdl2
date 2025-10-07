@@ -7,6 +7,7 @@
 #include <iostream>
 #include <SDL_image.h>
 
+#include "core/TextManager.h"
 #include "core/Texture.h"
 #include "entities/AppleEntity.h"
 #include "entities/EntityFactory.h"
@@ -41,6 +42,7 @@ void GameplayState::Update(float deltaTime) {
 		if (SDL_HasIntersection(&appleRect, &snakeRect)){
 			std::cout << "intersection\n";
 			applePtr->Respawn(renderer);
+			scoreManager.Increase();
 		}
 
 	}
@@ -60,6 +62,20 @@ void GameplayState::Render(SDL_Renderer* renderer) {
 
 	for (const auto& entity : entities) {
 		entity->Render(renderer);
+	}
+
+	if (textManager){
+		char msg [64];
+		sprintf(msg,"Score: %d", scoreManager.GetPoints());
+		SDL_Color white = {255, 255, 255, 255};
+		int scoreW = 120, scoreH = 70;
+		SDL_Texture* texture = textManager->CreateTextTexture(renderer, msg, white);
+		if (texture){
+			SDL_Rect msgRect = {10, 10, scoreW, scoreH};
+			SDL_RenderCopy(renderer, texture, nullptr, &msgRect);
+		}
+
+
 	}
 
 }
@@ -92,6 +108,9 @@ void GameplayState::OnStateBegin() {
 	snakePtr = dynamic_cast<SnakeEntity*>(snakeHead.get());
 	if (snakeHead)
 		AddEntity(std::move(snakeHead));
+
+	textManager = TextManager::Create(ASSET_FONTS_DIR "/michroma/Michroma-Regular.ttf", 12);
+
 
 }
 

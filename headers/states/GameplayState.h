@@ -8,6 +8,8 @@
 #include <vector>
 
 #include "GameState.h"
+#include "../entities/Score.h"
+#include "core/TextManager.h"
 #include "entities/AppleEntity.h"
 #include "entities/Entity.h"
 #include "entities/SnakeEntity.h"
@@ -17,7 +19,8 @@ class GameplayState : public GameState {
 
 public:
 
-	explicit GameplayState(SDL_Renderer* renderer) : renderer(renderer) {}
+	explicit GameplayState(SDL_Renderer* renderer) : renderer(renderer), scoreManager(50){
+	}
 
 	void HandleEvents(const SDL_Event &e) override;
 
@@ -35,8 +38,10 @@ private:
 	SDL_Renderer* renderer;
 	std::vector<std::unique_ptr<Entity>> entities;
 
-	AppleEntity* applePtr;
-	SnakeEntity* snakePtr;
+	AppleEntity* applePtr = nullptr;
+	SnakeEntity* snakePtr = nullptr;
+	Score scoreManager;
+	std::unique_ptr<TextManager> textManager;
 
 };
 

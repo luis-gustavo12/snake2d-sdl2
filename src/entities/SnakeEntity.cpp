@@ -53,27 +53,30 @@ void SnakeEntity::HandleInput(const SDL_Event &e) {
 	if (e.type == SDL_KEYDOWN) {
 
 		switch (e.key.keysym.sym) {
-			//
 			case SDLK_LEFT:
 			case SDLK_a: {
-				this->direction = EDirection::Left;
+				if (this->direction != EDirection::Right)
+					this->direction = EDirection::Left;
 				break;
 			}
 			case SDLK_RIGHT:
 			case SDLK_d: {
-				this->direction = EDirection::Right;
+				if (this->direction != EDirection::Left)
+					this->direction = EDirection::Right;
 				break;
 			}
 
 			case SDLK_UP:
 			case SDLK_w: {
-				this->direction = EDirection::Up;
+				if (this->direction != EDirection::Down)
+					this->direction = EDirection::Up;
 				break;
 			}
 
 			case SDLK_DOWN:
 			case SDLK_s: {
-				this->direction = EDirection::Down;
+				if (this->direction != EDirection::Up)
+					this->direction = EDirection::Down;
 				break;
 			}
 
