@@ -50,47 +50,8 @@ std::unique_ptr<Entity> EntityFactory::CreateEntity(EGameEntity entityNumber, SD
 
 			auto snake = std::unique_ptr<SnakeEntity> (new SnakeEntity());
 
-			SDL_Texture* upHead = TextureHandler::CreateTexture(ASSET_DIR "/head_up.png", renderer);
-			if (!upHead){
-				TEXTURE_INIT_ERROR;
-				return nullptr;
-			}
-			SDL_Texture* downHead = TextureHandler::CreateTexture(ASSET_DIR "/head_down.png", renderer);
-			if (!downHead) {
-				TEXTURE_INIT_ERROR;
-				SDL_DestroyTexture(upHead);
-				return nullptr;
-			}
-
-			SDL_Texture* leftHead = TextureHandler::CreateTexture(ASSET_DIR "/head_left.png", renderer);
-			if (!leftHead){
-				TEXTURE_INIT_ERROR;
-				SDL_DestroyTexture(upHead);
-				SDL_DestroyTexture(downHead);
-				return nullptr;
-			}
-
-			SDL_Texture* rightHead = TextureHandler::CreateTexture(ASSET_DIR "/head_right.png", renderer);
-			if (!rightHead){
-				TEXTURE_INIT_ERROR;
-				SDL_DestroyTexture(upHead);
-				SDL_DestroyTexture(downHead);
-				SDL_DestroyTexture(leftHead);
-				return nullptr;
-			}
-
-			snake->SetTextureDirection(EDirection::Down, downHead);
-			snake->SetTextureDirection(EDirection::Left, leftHead);
-			snake->SetTextureDirection(EDirection::Up, upHead);
-			snake->SetTextureDirection(EDirection::Right, rightHead);
-
-			int width, height;
-
-			SDL_QueryTexture(
-				upHead, nullptr,nullptr, &width, &height
-			);
-
-			snake->SetRect(50, 50, width, height);
+			snake->InitTextures(renderer);
+			snake->InitHead(50, 50);
 
 			return snake;
 

@@ -8,8 +8,6 @@
 
 #include "entities/Entity.h"
 
-#define TILES_MOVE 2
-
 enum class ETextureType {
 	HEAD_UP, HEAD_DOWN, HEAD_LEFT, HEAD_RIGHT,
 	BODY_UP, BODY_DOWN, BODY_LEFT, BODY_RIGHT,
@@ -19,6 +17,7 @@ enum class ETextureType {
 struct SnakeSegment {
 	SDL_Rect rect;
 	EDirection direction;
+	SDL_Texture* texture;
 };
 
 class EntityFactory;
@@ -35,34 +34,54 @@ public:
 
 	void SetTexture(SDL_Texture *texture) override;
 
-	void SetRect(int x, int y, int w, int h) override;
-
-	void SetPoint(int x, int y) override;
-
 	void SetDirection(EDirection newDirection);
 
-	void SetTextureDirection(EDirection direction, SDL_Texture* texture);
+	void InitTextures(SDL_Renderer* renderer);
 
-	void AddSegment(EDirection direction, SDL_Rect rect);
+	void InitHead(int x, int y);
+
+	void UpdateTextures();
+
+	std::vector<SDL_Rect> GetSnakeSegmentRects();
+
+	void Grow();
+
 private:
 
 	friend EntityFactory;
 
 	SnakeEntity() = default;
 
-	EDirection direction = EDirection::Down;
+	EDirection currentDirection = EDirection::Down;
+	EDirection nextDirection;
 
-	SDL_Texture* upTexture = nullptr;
-	SDL_Texture* downTexture = nullptr;
-	SDL_Texture* leftTexture = nullptr;
-	SDL_Texture* rightTexture = nullptr;
+	// Textures for the head
+	SDL_Texture* upHead = nullptr;
+	SDL_Texture* leftHead = nullptr;
+	SDL_Texture* rightHead = nullptr;
+	SDL_Texture* downHead = nullptr;
 
-	SDL_Texture* textureDirection = nullptr;
+	// Textures for the body, on curves
+	SDL_Texture* bodyBottomLeft = nullptr;
+	SDL_Texture* bodyBottomRight = nullptr;
+	SDL_Texture* bodyTopLeft = nullptr;
+	SDL_Texture* bodyTopRight = nullptr;
+
+
+	SDL_Texture* bodyVertical = nullptr;
+	SDL_Texture* bodyHorizontal = nullptr;
+
+	SDL_Texture* tailDown = nullptr;
+	SDL_Texture* tailLeft = nullptr;
+	SDL_Texture* tailUp = nullptr;
+	SDL_Texture* tailRight = nullptr;
 
 	float moveInterval = 0.2;
 	float moveTimer = 0.0f;
 	float speed = 200.0f;
 	float angle = Angle::ANGLE_RIGHT;
+	int tiles = 32;
+	bool grow = false;
 
 	std::vector<SnakeSegment> snakeBody;
 };

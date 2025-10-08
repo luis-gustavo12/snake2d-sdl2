@@ -23,7 +23,7 @@ std::unique_ptr<Entity> AppleEntity::Create(const char *imagePath, SDL_Renderer 
 
 	std::unique_ptr<Entity> apple = EntityFactory::CreateEntity(EGameEntity::Apple, renderer);
 
-	SDL_Window* window = SDL_RenderGetWindow(renderer);
+	//SDL_Window* window = SDL_RenderGetWindow(renderer);
 
 	return apple;
 

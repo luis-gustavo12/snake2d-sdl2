@@ -37,13 +37,19 @@ void GameplayState::Update(float deltaTime) {
 	// Check for collisions
 	if (applePtr && snakePtr){
 		SDL_Rect appleRect = applePtr->GetRect();
-		SDL_Rect snakeRect = snakePtr->GetRect();
+		std::vector<SDL_Rect> snakeRects = snakePtr->GetSnakeSegmentRects();
 
-		if (SDL_HasIntersection(&appleRect, &snakeRect)){
-			std::cout << "intersection\n";
-			applePtr->Respawn(renderer);
-			scoreManager.Increase();
-			soundManager.PlayOnce("crunch");
+		if (snakeRects.size() < 1) return;
+
+		// Compare each snakesegment with the apple
+		for (auto rect : snakeRects){
+			if (SDL_HasIntersection(&appleRect, &rect)){
+				std::cout << "Intersection\n";
+				applePtr->Respawn(renderer);
+				snakePtr->Grow();
+				scoreManager.Increase();
+				soundManager.PlayOnce("crunch");
+			}
 		}
 
 	}
@@ -114,7 +120,6 @@ void GameplayState::OnStateBegin() {
 	soundManager.PlayContinuously("background");
 
 	soundManager.Load(ASSET_SOUNDS_DIR "/apple-crunch.wav", ESoundType::WAV, "crunch");
-	std::cout << "me\n";
 
 }
 
