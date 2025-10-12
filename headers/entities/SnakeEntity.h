@@ -45,6 +45,11 @@ public:
 	std::vector<SDL_Rect> GetSnakeSegmentRects();
 
 	void Grow();
+	SDL_Rect GetSnakeHeadRect();
+
+	size_t GetSnakeSize();
+
+	inline bool GameOver() const{return gameOver;}
 
 private:
 
@@ -53,7 +58,7 @@ private:
 	SnakeEntity() = default;
 
 	EDirection currentDirection = EDirection::Down;
-	EDirection nextDirection;
+	EDirection nextDirection = EDirection::Down;
 
 	// Textures for the head
 	SDL_Texture* upHead = nullptr;
@@ -80,10 +85,12 @@ private:
 	float moveTimer = 0.0f;
 	float speed = 200.0f;
 	float angle = Angle::ANGLE_RIGHT;
-	int tiles = 32;
+	int tiles = 40;
 	bool grow = false;
 
 	std::vector<SnakeSegment> snakeBody;
+
+	bool gameOver = false;
 };
 
 

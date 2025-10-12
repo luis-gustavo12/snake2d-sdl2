@@ -51,7 +51,13 @@ std::unique_ptr<Entity> EntityFactory::CreateEntity(EGameEntity entityNumber, SD
 			auto snake = std::unique_ptr<SnakeEntity> (new SnakeEntity());
 
 			snake->InitTextures(renderer);
-			snake->InitHead(50, 50);
+
+			int x, y;
+			SDL_GetRendererOutputSize(renderer, &x, &y);
+			int startX = ( (x / 2 / 32) * 32);
+			int startY = ( (y / 2/ 32) * 32 );
+
+			snake->InitHead(startX, startY);
 
 			return snake;
 

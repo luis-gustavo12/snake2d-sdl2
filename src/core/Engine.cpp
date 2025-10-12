@@ -90,11 +90,30 @@ void Engine::Run() {
 		Uint64 endTime = SDL_GetPerformanceCounter();
 		float elapsedSeconds = (float) (endTime - currentTime) / (float) SDL_GetPerformanceFrequency();
 
-		if (elapsedSeconds < targetFps)
-		{
+		if (elapsedSeconds < targetFps) {
 			SDL_Delay(((targetFps - elapsedSeconds) * 1000.0f));
 		}
 
+		if (currentState->changeState) {
+			currentState->OnStateExit();
+			switch (currentState->GetNextState()){
+			case EGameState::Gameplay:
+				currentState = StateFactory::CreateState(EGameState::Gameplay, renderer);
+				break;
+			case EGameState::Menu:
+				currentState = StateFactory::CreateState(EGameState::Menu, renderer);
+				break;
+			case EGameState::GameOver:
+				currentState = StateFactory::CreateState(EGameState::GameOver, renderer);
+				break;
+			}
+
+			if (!currentState){
+				run = false;
+			}
+
+
+		}
 
 	}
 

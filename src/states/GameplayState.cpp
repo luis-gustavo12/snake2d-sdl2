@@ -34,12 +34,30 @@ void GameplayState::Update(float deltaTime) {
 		entity->Update(deltaTime);
 	}
 
+	// Check for snake collisions with itself and boundaries
+	if (snakePtr){
+		SDL_Rect snakeHead = snakePtr->GetSnakeHeadRect();
+		int windowW, windowH;
+		SDL_GetRendererOutputSize(renderer, &windowW, &windowH);
+		if (snakeHead.x < 0 || snakeHead.x >= windowW || snakeHead.y < 0 || snakeHead.y >= windowH){
+			std::cout << "Out of bounds!!\n";
+			SetNewState(EGameState::GameOver);
+			return;
+		}
+
+		if (snakePtr->GameOver()){
+			SetNewState(EGameState::GameOver);
+			return;
+		}
+
+	}
+
 	// Check for collisions
 	if (applePtr && snakePtr){
 		SDL_Rect appleRect = applePtr->GetRect();
 		std::vector<SDL_Rect> snakeRects = snakePtr->GetSnakeSegmentRects();
 
-		if (snakeRects.size() < 1) return;
+		if (snakeRects.empty()) return;
 
 		// Compare each snakesegment with the apple
 		for (auto rect : snakeRects){
@@ -127,4 +145,5 @@ void GameplayState::OnStateExit() {
 	entities.clear();
 	applePtr = nullptr;
 	snakePtr = nullptr;
+	changeState = false;
 }

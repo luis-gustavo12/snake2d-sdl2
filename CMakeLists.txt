@@ -4,9 +4,12 @@ project(snake_game_sdl2)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+add_subdirectory(libs/plog)
+
 set(ASSET_DIR "${CMAKE_SOURCE_DIR}/assets/snake-assets")
 set(ASSET_FONTS_DIR "${CMAKE_SOURCE_DIR}/assets/fonts")
 set (ASSET_SOUNDS_DIR "${CMAKE_SOURCE_DIR}/assets/sounds")
+set (GAME_LOG_PATH "${CMAKE_SOURCE_DIR}/logs/snake-sdl2.log")
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
@@ -38,9 +41,9 @@ add_executable(snake_game_sdl2 src/main.cpp
         headers/core/SoundManager.h)
 
 if (WIN32)
-    target_link_libraries(snake_game_sdl2 PRIVATE SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer SDL2::SDL2main)
+    target_link_libraries(snake_game_sdl2 PRIVATE plog SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer SDL2::SDL2main)
 else()
-    target_link_libraries(snake_game_sdl2 PRIVATE SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer)
+    target_link_libraries(snake_game_sdl2 PRIVATE plog SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer)
 endif()
 
 target_include_directories(snake_game_sdl2 PRIVATE
@@ -55,6 +58,7 @@ target_compile_definitions(snake_game_sdl2 PRIVATE
         ASSET_DIR="${ASSET_DIR}"
         ASSET_FONTS_DIR="${ASSET_FONTS_DIR}"
         ASSET_SOUNDS_DIR="${ASSET_SOUNDS_DIR}"
+        GAME_LOG_PATH="${GAME_LOG_PATH}"
 )
 
 if(WIN32)

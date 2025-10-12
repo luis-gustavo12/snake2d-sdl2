@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "core/Texture.h"
+#include "plog/Log.h"
 
 SnakeEntity::~SnakeEntity() {
 	snakeBody.clear();
@@ -83,6 +84,23 @@ void SnakeEntity::Update(float deltaTime) {
 		case EDirection::Right:
 			head.rect.x += tiles;
 			break;
+		}
+
+
+
+		if (snakeBody.size() > 3){
+			for (size_t i = 3; i < snakeBody.size(); i++){
+				if (SDL_HasIntersection(&head.rect, &snakeBody[i].rect)){
+					PLOG_INFO << "--- COLLISION DETECTED! ---";
+					PLOG_INFO << "Snake Size: " << snakeBody.size();
+					PLOG_INFO << "Head's NEXT position: (" << head.rect.x << ", " << head.rect.y << "," << head.rect.w  << ", " << head.rect.h <<")";
+					PLOG_INFO << "Body segment [" << i << "] CURRENT position: (" << snakeBody[i].rect.x << ", " << snakeBody[i].rect.y << ", " << head.rect.w << ", " << head.rect.h <<")";
+					PLOG_INFO << "Current moving direction: " << static_cast<int>(currentDirection);
+					PLOG_INFO << "Next intended direction: " << static_cast<int>(nextDirection);
+					PLOG_INFO << "---------------------------";
+					gameOver = true;
+				}
+			}
 		}
 
 
@@ -271,7 +289,8 @@ void SnakeEntity::UpdateTextures(){
 
 std::vector<SDL_Rect> SnakeEntity::GetSnakeSegmentRects(){
 
-	std::vector<SDL_Rect> aux (snakeBody.size());
+	std::vector<SDL_Rect> aux;
+	aux.reserve(snakeBody.size());
 
 	for (auto iter: snakeBody){
 		aux.push_back(iter.rect);
@@ -283,5 +302,14 @@ std::vector<SDL_Rect> SnakeEntity::GetSnakeSegmentRects(){
 
 void SnakeEntity::Grow(){
 	grow = true;
+}
+
+SDL_Rect SnakeEntity::GetSnakeHeadRect(){
+	if (!snakeBody.empty()) return snakeBody[0].rect;
+	return SDL_Rect{0, 0, 0, 0};
+}
+
+size_t SnakeEntity::GetSnakeSize(){
+	return snakeBody.size();
 }
 
