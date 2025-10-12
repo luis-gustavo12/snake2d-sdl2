@@ -10,8 +10,6 @@
 
 int main(int argc, char* argv[]) {
 
-	SDL_Window* window = nullptr;
-	SDL_Surface* surface = nullptr;
 	plog::init(plog::debug, GAME_LOG_PATH);
 	std::cout << ASSET_DIR << "\n";
 	PLOG_INFO << "Game started!";
