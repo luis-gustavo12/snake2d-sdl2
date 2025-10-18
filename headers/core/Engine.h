@@ -6,6 +6,7 @@
 #define SNAKE_GAME_SDL2_ENGINE_H
 #include <memory>
 #include <SDL_video.h>
+#include <vector>
 
 #include "../states/GameState.h"
 
@@ -21,7 +22,7 @@ public:
 	int Init(const char* windowName, int windowWidth, int windowHeight);
 	void Run();
 	~Engine();
-	std::unique_ptr<GameState> currentState = nullptr;
+	std::vector<std::unique_ptr<GameState>> gameStates;
 
 };
 

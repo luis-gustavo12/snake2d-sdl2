@@ -17,10 +17,7 @@ void GameplayState::HandleEvents(const SDL_Event &e) {
 
 	if (e.type == SDL_KEYDOWN) {
 		if (e.key.keysym.sym == SDLK_ESCAPE) {
-			SDL_Event quitEvent;
-			quitEvent.type = SDL_QUIT;
-			SDL_PushEvent(&quitEvent);
-			return;
+			SetNewState(EGameState::Menu);
 		}
 	}
 
@@ -145,5 +142,4 @@ void GameplayState::OnStateExit() {
 	entities.clear();
 	applePtr = nullptr;
 	snakePtr = nullptr;
-	changeState = false;
 }

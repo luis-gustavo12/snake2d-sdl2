@@ -38,12 +38,25 @@ add_executable(snake_game_sdl2 src/main.cpp
         src/core/TextManager.cpp
         headers/core/TextManager.h
         src/core/SoundManager.cpp
-        headers/core/SoundManager.h)
+        headers/core/SoundManager.h
+        src/states/MenuState.cpp
+        headers/states/MenuState.h)
+
+add_library(imgui_sdl STATIC
+        libs/imgui/imgui.cpp
+        libs/imgui/imgui_draw.cpp
+        libs/imgui/imgui_tables.cpp
+        libs/imgui/imgui_widgets.cpp
+        libs/imgui/backends/imgui_impl_sdl2.cpp
+        libs/imgui/backends/imgui_impl_sdlrenderer2.cpp
+)
+
+target_include_directories(imgui_sdl PUBLIC libs/imgui ${SDL2_INCLUDE_DIRS})
 
 if (WIN32)
-    target_link_libraries(snake_game_sdl2 PRIVATE plog SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer SDL2::SDL2main)
+    target_link_libraries(snake_game_sdl2 PRIVATE plog imgui_sdl SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer SDL2::SDL2main)
 else()
-    target_link_libraries(snake_game_sdl2 PRIVATE plog SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer)
+    target_link_libraries(snake_game_sdl2 PRIVATE plog imgui_sdl SDL2::SDL2 SDL2_image::SDL2_image SDL2_ttf::SDL2_ttf SDL2_mixer::SDL2_mixer)
 endif()
 
 target_include_directories(snake_game_sdl2 PRIVATE
@@ -52,6 +65,8 @@ target_include_directories(snake_game_sdl2 PRIVATE
         ${SDL2_TTF_INCLUDE_DIRS}
         ${SDL2_MIXER_INCLUDE_DIRS}
         "${CMAKE_SOURCE_DIR}/headers"
+        libs/imgui
+        libs/imgui/backends
 )
 
 target_compile_definitions(snake_game_sdl2 PRIVATE

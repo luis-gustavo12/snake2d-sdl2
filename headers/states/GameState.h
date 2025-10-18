@@ -16,7 +16,8 @@ class Engine;
 enum class EGameState{
 	Gameplay,
 	Menu,
-	GameOver
+	GameOver,
+	None
 };
 
 
@@ -31,15 +32,13 @@ public:
 	virtual void OnStateExit() = 0;
 	virtual void SetNewState(EGameState newState){
 		nextState = newState;
-		changeState = true;
 	}
 	virtual EGameState GetNextState() {return nextState;}
-	bool changeState = false;
 
 protected:
 	SDL_Texture* backgroundTexture = nullptr;
 	std::unique_ptr <SoundManager> soundManager = nullptr;
-	EGameState nextState = {};
+	EGameState nextState = EGameState::None;
 };
 
 
