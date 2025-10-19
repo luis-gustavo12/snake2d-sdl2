@@ -13,9 +13,7 @@ MenuState::~MenuState(){
 void MenuState::HandleEvents(const SDL_Event& e){
     if (e.type == SDL_KEYDOWN){
         if (e.key.keysym.sym == SDLK_ESCAPE){
-            SDL_Event quitEv {.type = SDL_QUIT};
-            SDL_PushEvent(&quitEv);
-            PLOG_DEBUG << "Quitting game!!";
+            SetNewState(EGameState::GameplayContinue);
         }
     }
 }
@@ -24,9 +22,19 @@ void MenuState::Update(float deltaTime){
 }
 
 void MenuState::Render(SDL_Renderer* renderer){
-    ImGui::Begin("Main Menu");
+    ImGui::Begin("Main Menu", nullptr, flags);
     ImGui::Text("Snake Game Menu");
     ImGui::Separator();
+    if (ImGui::Button("Continue")){
+        SetNewState(EGameState::GameplayContinue);
+    }
+    else if (ImGui::Button("Quit")){
+        SDL_Event quitEvent {.type = SDL_QUIT};
+        SDL_PushEvent(&quitEvent);
+    }
+
+    ImGui::Text("Text Wrapped");
+
     ImGui::End();
 }
 

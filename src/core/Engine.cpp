@@ -53,6 +53,9 @@ int Engine::Init(const char* windowName, int windowWidth, int windowHeight) {
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void) io;
 	ImGui::StyleColorsDark();
+	ImGui::GetStyle().WindowRounding = 5.0f;
+	ImGui::GetStyle().FrameRounding = 4.0f;
+	ImGui::GetStyle().GrabRounding = 4.0f;
 
 	ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
 	ImGui_ImplSDLRenderer2_Init(renderer);
@@ -124,10 +127,15 @@ void Engine::Run() {
 				SDL_PushEvent(&e);
 			}
 				break;
+
+			case EGameState::GameplayContinue: {
+				gameStates.erase(gameStates.begin() + 1, gameStates.end());
+			}
+				break;
 			default:
 				;
 			}
-
+			gameStates.back()->SetNewState(EGameState::None);
 		}
 
 		ImGui::Render();

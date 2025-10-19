@@ -17,7 +17,8 @@ enum class EGameState{
 	Gameplay,
 	Menu,
 	GameOver,
-	None
+	None,
+	GameplayContinue
 };
 
 

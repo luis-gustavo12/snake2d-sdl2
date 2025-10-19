@@ -5,6 +5,7 @@
 #ifndef SNAKE_GAME_SDL2_MENUSTATE_H
 #define SNAKE_GAME_SDL2_MENUSTATE_H
 #include "GameState.h"
+#include "imgui.h"
 
 
 class MenuState : public GameState{
@@ -22,6 +23,7 @@ public:
 
 private:
     SDL_Renderer* renderer;
+    ImGuiWindowFlags flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
 };
 
 
