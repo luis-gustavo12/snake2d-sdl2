@@ -313,3 +313,14 @@ size_t SnakeEntity::GetSnakeSize(){
 	return snakeBody.size();
 }
 
+void SnakeEntity::SetTilesSizeByTexture(){
+
+	if (!upHead) return;
+
+	int width, height;
+	SDL_QueryTexture(upHead, nullptr, nullptr, &width, &height);
+	PLOG_DEBUG << "Setting tiles size to " << width;
+	tiles = width;
+
+}
+

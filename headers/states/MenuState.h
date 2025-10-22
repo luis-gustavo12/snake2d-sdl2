@@ -23,7 +23,7 @@ public:
 
 private:
     SDL_Renderer* renderer;
-    ImGuiWindowFlags flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+    ImGuiWindowFlags flags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize;
 };
 
 

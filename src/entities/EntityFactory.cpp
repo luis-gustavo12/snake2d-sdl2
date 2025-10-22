@@ -57,7 +57,11 @@ std::unique_ptr<Entity> EntityFactory::CreateEntity(EGameEntity entityNumber, SD
 			int startX = ( (x / 2 / 32) * 32);
 			int startY = ( (y / 2/ 32) * 32 );
 
+			int width, height;
+			SDL_QueryTexture(snake->upHead, nullptr, nullptr, &width, &height);
+
 			snake->InitHead(startX, startY);
+			snake->SetTilesSizeByTexture();
 
 			return snake;
 

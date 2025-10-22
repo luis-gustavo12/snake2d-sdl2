@@ -113,7 +113,12 @@ void Engine::Run() {
 
 		if (gameStates.back()->GetNextState() != EGameState::None){
 			switch (gameStates.back()->GetNextState()){
-			case EGameState::Gameplay:
+			case EGameState::Gameplay:{
+a				gameStates.clear();
+				auto state = StateFactory::CreateState(EGameState::Gameplay, renderer);
+				state->OnStateBegin();
+				gameStates.push_back(std::move(state));
+			}
 				break;
 			case EGameState::Menu:{
 				PLOG_DEBUG << "Menu";
@@ -122,11 +127,10 @@ void Engine::Run() {
 			}
 				break;
 			case EGameState::GameOver:{
-				SDL_Event e;
-				e.type = SDL_QUIT;
-				SDL_PushEvent(&e);
-			}
+				auto gameOverState = StateFactory::CreateState(EGameState::GameOver, renderer);
+				gameStates.push_back(std::move(gameOverState));
 				break;
+			}
 
 			case EGameState::GameplayContinue: {
 				gameStates.erase(gameStates.begin() + 1, gameStates.end());
@@ -139,7 +143,6 @@ void Engine::Run() {
 		}
 
 		ImGui::Render();
-		//ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData());
 		ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), renderer);
 
 		SDL_RenderPresent(renderer);

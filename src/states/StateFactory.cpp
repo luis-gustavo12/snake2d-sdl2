@@ -4,6 +4,7 @@
 
 #include "../../headers/states/StateFactory.h"
 
+#include "../../headers/states/GameOverState.h"
 #include "../../headers/states/GameplayState.h"
 #include "states/MenuState.h"
 
@@ -15,6 +16,9 @@ std::unique_ptr<GameState> StateFactory::CreateState(EGameState state, SDL_Rende
 		}
 		case EGameState::Menu:{
 			return std::make_unique<MenuState>(renderer);
+		}
+		case EGameState::GameOver:{
+			return std::make_unique<GameOverState>();
 		}
 		default:
 			return nullptr;

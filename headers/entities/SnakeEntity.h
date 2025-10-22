@@ -51,6 +51,8 @@ public:
 
 	inline bool GameOver() const{return gameOver;}
 
+	void SetTilesSizeByTexture();
+
 private:
 
 	friend EntityFactory;
@@ -83,9 +85,9 @@ private:
 
 	float moveInterval = 0.2;
 	float moveTimer = 0.0f;
-	float speed = 200.0f;
+	float snakeSpeed = 200.0f;
 	float angle = Angle::ANGLE_RIGHT;
-	int tiles = 40;
+	int tiles;
 	bool grow = false;
 
 	std::vector<SnakeSegment> snakeBody;

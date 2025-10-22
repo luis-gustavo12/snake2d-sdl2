@@ -22,6 +22,9 @@ void MenuState::Update(float deltaTime){
 }
 
 void MenuState::Render(SDL_Renderer* renderer){
+
+    ImGui::SetNextWindowSize(ImVec2(500, 500), ImGuiCond_Always);
+
     ImGui::Begin("Main Menu", nullptr, flags);
     ImGui::Text("Snake Game Menu");
     ImGui::Separator();

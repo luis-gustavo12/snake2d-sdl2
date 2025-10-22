@@ -34,6 +34,8 @@ public:
 
 	void OnStateExit() override;
 
+	void ResetState();
+
 private:
 	SDL_Renderer* renderer;
 	std::vector<std::unique_ptr<Entity>> entities;

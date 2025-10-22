@@ -40,7 +40,9 @@ add_executable(snake_game_sdl2 src/main.cpp
         src/core/SoundManager.cpp
         headers/core/SoundManager.h
         src/states/MenuState.cpp
-        headers/states/MenuState.h)
+        headers/states/MenuState.h
+        src/states/GameOverState.cpp
+        headers/states/GameOverState.h)
 
 add_library(imgui_sdl STATIC
         libs/imgui/imgui.cpp

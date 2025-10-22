@@ -143,3 +143,8 @@ void GameplayState::OnStateExit() {
 	applePtr = nullptr;
 	snakePtr = nullptr;
 }
+
+void GameplayState::ResetState(){
+	entities.erase(entities.begin() + 2, entities.end());
+	scoreManager.Reset();
+}
